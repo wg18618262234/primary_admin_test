@@ -46,4 +46,4 @@ def insert_tools_address():
         return jsonify({'code': 0, 'message': e})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,host='0.0.0.0')
