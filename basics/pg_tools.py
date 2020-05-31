@@ -58,15 +58,11 @@ class pgdb():
         self.conn.close()
         return {'受影响行数': str(rowcount)}
 
-    def delete(self, table_name, id, data=None, **dict):
-        # 删除还没写完
-        if dict:
-            data = dict
-        columns = ' = %s,'.join(list(data.keys())) + ' = %s'
-        sql = "UPDATE %s SET %s WHERE id = %s" % (table_name, columns, id)
+    def delete(self, table_name, id):
+        sql = "DELETE FROM %s WHERE id = %s" % (table_name, id)
         cur = self.conn.cursor()
-        logging.info('sql: ' + sql + ' % (' + str(list(data.values())) + ')')
-        cur.execute(sql, list(data.values()))
+        logging.info('sql: ' + sql)
+        cur.execute(sql)
         rowcount = cur.rowcount
         logging.info('受影响行数：' + str(rowcount))
         self.conn.commit()
@@ -77,8 +73,8 @@ class pgdb():
 if __name__ == '__main__':
     db = pgdb()
     # db.insert(table_name='api_trends', _id=11, content='qwerrr')
-    data = {"_id": "11", "content": "qwerrr"}
-    db.update('api_trends', data, 6492)
+    # data = {"_id": "11", "content": "qwerrr"}
+    # db.update('api_trends', data, 6492)
     # db.insert(table_name='api_trends', data=data)
     # db.select(table_name='api_trends', where_sql='_id = 2')
     # db.select(table_name='api_trends')
