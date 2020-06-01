@@ -14,7 +14,7 @@ def index():
 @app.route('/get_tools')
 def get_tools_address():
     pg = pgdb()
-    result = pg.select(table_name='tools_address')
+    result = pg.select(table_name='tools_address',order_by='id DESC')
     return jsonify({'code': 1, 'result': result})
 
 
